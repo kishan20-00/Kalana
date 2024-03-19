@@ -15,7 +15,7 @@ router.get("/", viewStoreDetails);
  router.delete("/delete/:id",deleteStoreDetails);
 
 //view one Hotel
-router.get("/get/:id", viewOneStoreDetail);
+router.get("/get/:id", viewOneDetail);
 
 
 
