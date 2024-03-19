@@ -55,7 +55,6 @@ exports.deleteUser = async (req, res) => {
     //fetch id from url
     let id = req.params.id;
     const {
-        userID,
       name,
        email,
        contactNumber,
@@ -63,7 +62,6 @@ exports.deleteUser = async (req, res) => {
            } = req.body;
   
     const updateUser = {
-        userID,
       name,
        email,
        contactNumber,
@@ -103,7 +101,7 @@ exports.viewUser= async (req, res) => {
     })
   }
 
-exports.viewOneUser = async (req, res) => {
+exports.viewOneUserName = async (req, res) => {
     const userName = req.params.name; // Assuming the name is passed as a parameter
 
     try {

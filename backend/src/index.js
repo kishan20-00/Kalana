@@ -19,13 +19,13 @@ app.use("/user", userRouter);
 const storeDetailRouter = require("./routes/storeDetailsRoutes.js");
 app.use("/store", storeDetailRouter);
 
-// //location router
-// const locationRouter = require("./routes/locationRoutes.js");
-// app.use("/location", locationRouter);
+//store Offers router
+const storeOfferRouter = require("./routes/storeOffersRoutes.js");
+app.use("/offer", storeOfferRouter);
 
-// //vehicle router
-// const vehicleRouter = require("./routes/vehicleRouter.js");
-// app.use("/vehicle", vehicleRouter);
+//store Items router
+const storeItemRouter = require("./routes/storeItemsRoutes.js");
+app.use("/item", storeItemRouter);
 
 // //promo code router
 // const promoCodeRouter = require("./routes/promoCodeRouter.js");
