@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 .home-page {
     position: fixed;
     bottom: 20px;
@@ -29,6 +31,15 @@
 
 .logout{
   position: relative;
-  left: 400px;
+  left: 680px;
 }
   
+.navbar-brand {
+  font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 700; /* Optionally adjust the font weight */
+}
+
+/* Navbar text color */
+.navbar-nav .nav-link {
+  color: white !important; /* Change text color to white */
+}

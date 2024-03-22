@@ -6,11 +6,15 @@ function ParkingLot() {
   const [scanSuccess, setScanSuccess] = useState(false);
   const [selectedBoxes, setSelectedBoxes] = useState([]);
   const [showScanner, setShowScanner] = useState(false);
+  const [parkingLot, setParkingLot] = useState(null);
 
   const handleScan = (data) => {
-    if (data) {
-      // QR code scanned successfully
+    if (data && data === "success") {
+      // QR code scanned successfully with message "success"
       setScanSuccess(true);
+      // Generate a random parking lot number
+      const randomParkingLot = Math.floor(Math.random() * 100) + 1;
+      setParkingLot(randomParkingLot);
     }
   };
 
@@ -56,7 +60,11 @@ function ParkingLot() {
           <button onClick={handleCloseScanner}>Close</button>
         </div>
       )}
-      {scanSuccess && <p>Success</p>}
+      {scanSuccess && (
+        <p>
+          Success! Parking lot assigned: {parkingLot}
+        </p>
+      )}
     </div>
   );
 }
