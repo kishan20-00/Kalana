@@ -3,6 +3,7 @@ import Chatbot from "react-simple-chatbot";
 import "./home.css"; // Import CSS file for styling
 import { Navbar, Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import backgroundImage from './mall.jpg';
 
 export default function Home() {
   const [chatbotOpened, setChatbotOpened] = useState(false); // Define initial state as `false`
@@ -57,10 +58,18 @@ export default function Home() {
   };
 
   return (
+    <div 
+            className="d-flex flex-column min-vh-100" 
+            style={{
+                backgroundImage: `url(${backgroundImage})`, // Set the background image
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+            }}
+        >
     <div>
     <div className="header">
       <Navbar bg="primary" data-bs-theme="dark">
-        <Navbar.Brand href="#home">SuperMall</Navbar.Brand>
+        <Navbar.Brand href="#home">Super Mall</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
@@ -83,8 +92,9 @@ export default function Home() {
       {chatbotOpened && <Chatbot steps={steps} />}
       <div className="home-page">
         {/* Add text inside button to verify if it's rendered */}
-        <button onClick={toggleChatbot} className="chatbot-button"><img src="./c.jpg" alt="chatbot"/></button>
+        <button onClick={toggleChatbot} className="chatbot-button"><img src="./src/pages/c.jpg" alt="chatbot"/></button>
       </div>
+    </div>
     </div>
     </div>
   );
