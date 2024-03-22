@@ -1,0 +1,25 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust as needed */
+    position: relative;
+    bottom: 50px;
+}
+
+.login-form {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 400px; /* Adjust width as needed */
+}
+
+.subButton {
+    position: relative;
+    top: 10px;
+}
+
+.signup-link{
+    position: relative;
+    top: 20px;
+}

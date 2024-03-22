@@ -1,20 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import ListGroup from "react-bootstrap/ListGroup";
+import { Table, Button, Modal, Form } from "react-bootstrap";
 import axios from 'axios';
+import "./ViewOffers.css"; // Import CSS file for styling
 
-function ViewOffers() {
+export default function ViewOffers() {
     const [values, setValues] = useState([]);
-
     const [OfferName, setOfferName] = useState("");
     const [StoreName, setStoreName] = useState("");
     const [DiscountPercentage, setDiscountPercentage] = useState("");
     const [contactNumber, setContactNumber] = useState("");
     const [Description, setDescription] = useState("");
     const [Period, setPeriod] = useState("");
-
     const [offers, setOffers] = useState([]);
     const [show, setShow] = useState(false);
 
@@ -35,6 +31,7 @@ function ViewOffers() {
     const deleteOffers = (id) => {
         axios.delete(`http://localhost:8000/offer/delete/${id}`);
         alert("Offer Details deleted.");
+        window.location.reload();
     };
 
     const updateOfferDetails = (val) => {
@@ -55,10 +52,11 @@ function ViewOffers() {
             Period: Period || values.Period
         };
 
-        axios.put(`http://localhost:8000/item/update/${updatedValues.id}`, updatedValues)
+        axios.put(`http://localhost:8000/offer/update/${updatedValues.id}`, updatedValues)
             .then(() => {
                 alert("Offer Details Updated");
                 handleClose();
+                window.location.reload();
             }).catch((err) => {
                 console.log(err);
                 alert(err);
@@ -68,67 +66,73 @@ function ViewOffers() {
     return (
         <div>
             <h1>All Offers</h1>
-            {offers.map((val, key) => (
-                <div key={key} className="users">
-                    <ListGroup key={key} horizontal className="my-2">
-                        <ListGroup.Item>{val._id}</ListGroup.Item>
-                        <ListGroup.Item>{val.OfferName}</ListGroup.Item>
-                        <ListGroup.Item>{val.StoreName}</ListGroup.Item>
-                        <ListGroup.Item>{val.DiscountPercentage}</ListGroup.Item>
-                        <ListGroup.Item>{val.contactNumber}</ListGroup.Item>
-                        <ListGroup.Item>{val.Description}</ListGroup.Item>
-                        <ListGroup.Item>{val.Period}</ListGroup.Item>
-                    </ListGroup>
+            <Table striped bordered hover className="offers-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Offer Name</th>
+                        <th>Store Name</th>
+                        <th>Discount Percentage</th>
+                        <th>Contact Number</th>
+                        <th>Description</th>
+                        <th>Period</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {offers.map((val, key) => (
+                        <tr key={key}>
+                            <td>{val._id}</td>
+                            <td>{val.OfferName}</td>
+                            <td>{val.StoreName}</td>
+                            <td>{val.DiscountPercentage}</td>
+                            <td>{val.contactNumber}</td>
+                            <td>{val.Description}</td>
+                            <td>{val.Period}</td>
+                            <td>
+                                <Button variant="primary" onClick={() => updateOfferDetails(val)}>Update</Button>
+                                <Button variant="danger" onClick={() => deleteOffers(val._id)}>Delete</Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
 
-                    <Button variant="primary" onClick={() => updateOfferDetails(val)} className="uppay">Update</Button>
-                    <Button className="delpay" onClick={() => deleteOffers(val._id)}>Delete</Button>
-
-                    <Modal show={show} onHide={handleClose} className="getfunc">
-                        <Modal.Header closeButton>
-                            <Modal.Title>Update Details</Modal.Title>
-                        </Modal.Header>
-
-                        <Modal.Body>
-                            <Form onSubmit={sendData}>
-                                <Form.Group controlId="name">
-                                    <Form.Label>Item Name</Form.Label>
-                                    <Form.Control type="text" defaultValue={values.ItemName} onChange={(e) => setOfferName(e.target.value)} required />
-                                </Form.Group>
-
-                                <Form.Group controlId="email">
-                                    <Form.Label>Store Name</Form.Label>
-                                    <Form.Control type="text" defaultValue={values.StoreName} onChange={(e) => setStoreName(e.target.value)} required />
-                                </Form.Group>
-
-                                <Form.Group controlId="contactNumber">
-                                    <Form.Label>Discount Percentage</Form.Label>
-                                    <Form.Control type="text" defaultValue={values.Price} onChange={(e) => setDiscountPercentage(e.target.value)} required />
-                                </Form.Group>
-
-                                <Form.Group controlId="password">
-                                    <Form.Label>Contact Number</Form.Label>
-                                    <Form.Control type="text" defaultValue={values.Description} onChange={(e) => setContactNumber(e.target.value)} required />
-                                </Form.Group>
-
-                                <Form.Group controlId="password">
-                                    <Form.Label>Description</Form.Label>
-                                    <Form.Control type="text" defaultValue={values.Stock} onChange={(e) => setDescription(e.target.value)} required />
-                                </Form.Group>
-
-                                <Form.Group controlId="password">
-                                    <Form.Label>Period</Form.Label>
-                                    <Form.Control type="text" defaultValue={values.Stock} onChange={(e) => setPeriod(e.target.value)} required />
-                                </Form.Group>
-
-                                <Button className="finalpay" type="submit">Edit details</Button>
-                            </Form>
-                        </Modal.Body>
-                    </Modal>
-                    <br />
-                </div>
-            ))}
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Update Details</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={sendData}>
+                        <Form.Group controlId="OfferName">
+                            <Form.Label>Offer Name</Form.Label>
+                            <Form.Control type="text" defaultValue={values.OfferName} onChange={(e) => setOfferName(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group controlId="StoreName">
+                            <Form.Label>Store Name</Form.Label>
+                            <Form.Control type="text" defaultValue={values.StoreName} onChange={(e) => setStoreName(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group controlId="DiscountPercentage">
+                            <Form.Label>Discount Percentage</Form.Label>
+                            <Form.Control type="text" defaultValue={values.DiscountPercentage} onChange={(e) => setDiscountPercentage(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group controlId="contactNumber">
+                            <Form.Label>Contact Number</Form.Label>
+                            <Form.Control type="text" defaultValue={values.contactNumber} onChange={(e) => setContactNumber(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group controlId="Description">
+                            <Form.Label>Description</Form.Label>
+                            <Form.Control type="text" defaultValue={values.Description} onChange={(e) => setDescription(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group controlId="Period">
+                            <Form.Label>Period</Form.Label>
+                            <Form.Control type="text" defaultValue={values.Period} onChange={(e) => setPeriod(e.target.value)} required />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">Update</Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
         </div>
     );
-};
+}
 
-export default ViewOffers;

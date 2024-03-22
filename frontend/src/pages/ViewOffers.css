@@ -1,0 +1,21 @@
+.offers-table {
+    width: 100%;
+  }
+  
+  .offers-table th, .offers-table td {
+    text-align: center;
+    vertical-align: middle;
+  }
+  
+  .offers-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .offers-table td {
+    border: 1px solid #ddd;
+  }
+  
+  .offers-table th, .offers-table td {
+    padding: 8px;
+  }
+  

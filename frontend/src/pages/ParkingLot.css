@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(10, 60px); /* Adjust the number of columns and width as needed */
+  grid-template-rows: repeat(10, 60px); /* Adjust the number of rows and height as needed */
+  gap: 5px;
+}
+
+.box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px; /* Adjust the width of each box as needed */
+  height: 60px; /* Adjust the height of each box as needed */
+  border: 2px solid #ccc; /* Increase border width and position outside */
+  box-sizing: border-box; /* Include border width in box dimensions */
+  cursor: pointer;
+}
+
+.box.selected {
+  background-color: #007bff;
+  color: #fff;
+}
