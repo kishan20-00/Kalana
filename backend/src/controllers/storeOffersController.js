@@ -5,7 +5,6 @@ exports.addNewOffer= async (req, res) => {
  
     //constant variables for the attributes
     const {
-        OfferID,
         OfferName,
         StoreName,
         DiscountPercentage,
@@ -14,15 +13,7 @@ exports.addNewOffer= async (req, res) => {
         Period,
      } = req.body;
   
-  
-    storeOffers.findOne({OfferID: OfferID})
-      .then((savedOffer) => {
-          if(savedOffer) {
-              return res.status(422).json({error:"Offer already exists with that no"})
-          }
-  
           const newOfferDetails = new storeOffers({
-            OfferID,
         OfferName,
         StoreName,
         DiscountPercentage,
@@ -38,10 +29,10 @@ exports.addNewOffer= async (req, res) => {
           
         })
       
-    }).catch((err) =>{
+    .catch((err) =>{
         
     })
-    }
+    };
 
 //delete existing one
 exports.deleteStoreOffers = async (req, res) => {

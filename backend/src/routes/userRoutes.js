@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const {addNewUser,viewUser,viewOneUser, updateUser,deleteUser} = require ('../controllers/userController.js')
+const {addNewUser,viewUser,viewOneUser, updateUser,deleteUser, login} = require ('../controllers/userController.js')
 
 //add new Hotel 
 router.post("/add", addNewUser);
@@ -17,6 +17,7 @@ router.get("/", viewUser);
 //view one Hotel
 router.get("/get/:id", viewOneUser);
 
-
+//Login
+router.post("/log", login);
 
 module.exports = router;

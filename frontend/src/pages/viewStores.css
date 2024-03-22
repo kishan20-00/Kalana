@@ -1,0 +1,23 @@
+.store-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.store-table th,
+.store-table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.store-table th {
+    background-color: #f2f2f2;
+}
+
+.store-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.store-table tr:hover {
+    background-color: #ddd;
+}

@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import ListGroup from "react-bootstrap/ListGroup";
+import { Table, Form, Button, Modal } from "react-bootstrap";
 import axios from 'axios';
 
 function ViewUsers() {
     const [values, setValues] = useState([]);
-
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [contactNumber, setContactNumber] = useState("");
     const [password, setPassword] = useState("");
-
     const [users, setUsers] = useState([]);
     const [show, setShow] = useState(false);
 
@@ -64,53 +59,59 @@ function ViewUsers() {
     return (
         <div>
             <h1>All Payments</h1>
-            {users.map((val, key) => (
-                <div key={key} className="users">
-                    <ListGroup key={key} horizontal className="my-2">
-                        <ListGroup.Item>{val._id}</ListGroup.Item>
-                        <ListGroup.Item>{val.name}</ListGroup.Item>
-                        <ListGroup.Item>{val.email}</ListGroup.Item>
-                        <ListGroup.Item>{val.contactNumber}</ListGroup.Item>
-                        <ListGroup.Item>{val.password}</ListGroup.Item>
-                    </ListGroup>
-
-                    <Button variant="primary" onClick={() => updateUserDetails(val)} className="uppay">Update</Button>
-                    <Button className="delpay" onClick={() => deleteUsers(val._id)}>Delete</Button>
-
-                    <Modal show={show} onHide={handleClose} className="getfunc">
-                        <Modal.Header closeButton>
-                            <Modal.Title>Update Details</Modal.Title>
-                        </Modal.Header>
-
-                        <Modal.Body>
-                            <Form onSubmit={sendData}>
-                                <Form.Group controlId="name">
-                                    <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" defaultValue={values.name} onChange={(e) => setName(e.target.value)} required />
-                                </Form.Group>
-
-                                <Form.Group controlId="email">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control type="text" defaultValue={values.email} onChange={(e) => setEmail(e.target.value)} required />
-                                </Form.Group>
-
-                                <Form.Group controlId="contactNumber">
-                                    <Form.Label>Contact Number</Form.Label>
-                                    <Form.Control type="text" defaultValue={values.contactNumber} onChange={(e) => setContactNumber(e.target.value)} required />
-                                </Form.Group>
-
-                                <Form.Group controlId="password">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="text" defaultValue={values.password} onChange={(e) => setPassword(e.target.value)} required />
-                                </Form.Group>
-
-                                <Button className="finalpay" type="submit">Edit details</Button>
-                            </Form>
-                        </Modal.Body>
-                    </Modal>
-                    <br />
-                </div>
-            ))}
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact Number</th>
+                        <th>Password</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {users.map((val, key) => (
+                        <tr key={key}>
+                            <td>{val._id}</td>
+                            <td>{val.name}</td>
+                            <td>{val.email}</td>
+                            <td>{val.contactNumber}</td>
+                            <td>{val.password}</td>
+                            <td>
+                                <Button variant="primary" onClick={() => updateUserDetails(val)}>Update</Button>
+                                <Button className="ml-2" onClick={() => deleteUsers(val._id)}>Delete</Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Update Details</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={sendData}>
+                        <Form.Group controlId="name">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="text" defaultValue={values.name} onChange={(e) => setName(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group controlId="email">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="text" defaultValue={values.email} onChange={(e) => setEmail(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group controlId="contactNumber">
+                            <Form.Label>Contact Number</Form.Label>
+                            <Form.Control type="text" defaultValue={values.contactNumber} onChange={(e) => setContactNumber(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group controlId="password">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="text" defaultValue={values.password} onChange={(e) => setPassword(e.target.value)} required />
+                        </Form.Group>
+                        <Button variant="primary" type="submit">Edit details</Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
         </div>
     );
 };

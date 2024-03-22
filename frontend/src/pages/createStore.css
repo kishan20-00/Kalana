@@ -1,0 +1,26 @@
+/* createStore.css */
+
+.container {
+  width: 400px; /* Adjust width as needed */
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd; /* Border color */
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); /* Box shadow */
+  background-color: #f9f9f9; /* Background color */
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  height: 35px;
+  font-size: 14px;
+  width: calc(100% - 30px); /* Adjust width as needed */
+}
+
+.btn {
+  padding: 8px 20px;
+  font-size: 14px;
+}

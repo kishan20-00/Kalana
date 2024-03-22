@@ -5,7 +5,6 @@ exports.addNewStore= async (req, res) => {
  
     //constant variables for the attributes
     const {
-      StoreID,
       StoreName,
        Email,
        contactNumber,
@@ -14,15 +13,7 @@ exports.addNewStore= async (req, res) => {
      OpeningTime,
      } = req.body;
   
-  
-    storeDetailDetails.findOne({StoreID: StoreID})
-      .then((savedStore) => {
-          if(savedStore) {
-              return res.status(422).json({error:"Store already exists with that no"})
-          }
-  
           const newStoreDetails = new storeDetailDetails({
-            StoreID,
             StoreName,
             Email,
             contactNumber,
@@ -37,11 +28,10 @@ exports.addNewStore= async (req, res) => {
         }).catch((err) => {
           
         })
-      
-    }).catch((err) =>{
+      .catch((err) =>{
         
     })
-    }
+    };
 
 //delete existing one
 exports.deleteStoreDetails = async (req, res) => {

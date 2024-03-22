@@ -1,0 +1,22 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .form-box {
+    width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  .form-box form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-box button {
+    width: 100%;
+  }
+  

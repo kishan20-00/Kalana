@@ -1,0 +1,34 @@
+.home-page {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .chatbot-button {
+    /* Styles for a round button */
+    border: none;
+    border-radius: 50%; /* Makes the button round */
+    width: 50px; /* Adjust the width and height as needed */
+    height: 50px;
+    background-color: #007bff; /* Button background color */
+    color: white; /* Button text color */
+    font-size: 16px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .chatbot-button:hover {
+    background-color: #0056b3; /* Change background color on hover */
+  }
+
+.chatbot{
+  float: right;
+  position: relative;
+  right: 80px;
+}
+
+.logout{
+  position: relative;
+  left: 400px;
+}
+  

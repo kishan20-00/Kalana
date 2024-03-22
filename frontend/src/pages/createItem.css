@@ -1,0 +1,34 @@
+.create-item-container {
+    width: 400px;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+}
+
+textarea.form-control {
+    resize: none;
+    height: 100px;
+}
+
+.btn {
+    width: 100%;
+}
+
+.addbutton{
+    position: relative;
+    top: 10px;
+}
