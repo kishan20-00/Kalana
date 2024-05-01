@@ -21,3 +21,30 @@
 .store-table tr:hover {
     background-color: #ddd;
 }
+
+/* Add these styles to your viewStores.css file */
+
+.store-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .store-card {
+    width: 300px; /* Set the width of each card */
+  }
+  
+  .card-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+  
+  .update-button {
+    flex: 1;
+  }
+  
+  .delete-button {
+    flex: 1;
+  }
+  

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Form, Button, Modal } from "react-bootstrap";
 import axios from 'axios';
+import jsPDF from 'jspdf';
 
 function ViewUsers() {
     const [values, setValues] = useState([]);
@@ -35,6 +36,36 @@ function ViewUsers() {
         handleShow();
     };
 
+    const generatePDFReport = (user) => {
+        // Create a new jsPDF instance
+        const doc = new jsPDF();
+      
+        // Set properties of the PDF document
+        doc.setProperties({
+            title: 'User Report',
+            author: 'Your Company',
+        });
+      
+        // Set up the header of the PDF
+        doc.setFontSize(18);
+        doc.text('User Report', 105, 10, { align: 'center' });
+      
+        // Generate the content of the PDF for the single user
+        let content = `User Details:\n`;
+        content += `ID: ${user._id}\n`;
+        content += `Name: ${user.name}\n`;
+        content += `Email: ${user.email}\n`;
+        content += `Contact Number: ${user.contactNumber}\n`;
+        content += `Password: ${user.password}\n\n`;
+      
+        // Add the content to the PDF
+        doc.setFontSize(12);
+        doc.text(content, 10, 20);
+      
+        // Save the PDF
+        doc.save(`user_report_${user._id}.pdf`);
+    };
+
     function sendData(e) {
         e.preventDefault();
 
@@ -58,7 +89,7 @@ function ViewUsers() {
 
     return (
         <div>
-            <h1>All Payments</h1>
+            <h1>All Users</h1>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -67,7 +98,9 @@ function ViewUsers() {
                         <th>Email</th>
                         <th>Contact Number</th>
                         <th>Password</th>
-                        <th>Actions</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                        <th>Download</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,8 +113,9 @@ function ViewUsers() {
                             <td>{val.password}</td>
                             <td>
                                 <Button variant="primary" onClick={() => updateUserDetails(val)}>Update</Button>
-                                <Button className="ml-2" onClick={() => deleteUsers(val._id)}>Delete</Button>
                             </td>
+                            <td><Button className="danger" onClick={() => deleteUsers(val._id)}>Delete</Button></td>
+                            <td><Button className="success" onClick={() => generatePDFReport(val)}>Download Report</Button></td>
                         </tr>
                     ))}
                 </tbody>

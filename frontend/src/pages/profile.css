@@ -1,0 +1,11 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.profile-card {
+    width: 400px;
+    margin-top: 20px;
+}

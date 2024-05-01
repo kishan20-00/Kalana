@@ -1,0 +1,43 @@
+.admin-panel-container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 1200px;
+    max-height: 900px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.admin-panel-options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.admin-panel-option {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.admin-panel-option h2 {
+    margin-top: 0;
+}
+
+.admin-panel-option p {
+    margin-bottom: 15px;
+}
+
+.admin-panel-link {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.admin-panel-link:hover {
+    background-color: #0056b3;
+}

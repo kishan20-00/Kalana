@@ -10,6 +10,11 @@ import ViewOffers from "./pages/AllOffers";
 import Login from "./pages/login";
 import Home from "./pages/home";
 import ParkingLot from "./pages/Parking";
+import Profile from "./pages/profile";
+import AdminPanel from "./pages/adminpanel";
+import UserViewItems from "./pages/userviewItem";
+import UserViewOffers from "./pages/userviewOffer";
+import UserViewStores from "./pages/userviewstore";
 
 function App() {
   return (
@@ -25,6 +30,11 @@ function App() {
       <Route path="/viewitem" element={<ViewItems />} />
       <Route path="/addoffer" element={<CreateOffer />} />
       <Route path="/viewoffer" element={<ViewOffers />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/admin" element={<AdminPanel />} />
+      <Route path="/userItem" element={<UserViewItems />} />
+      <Route path="/userOffer" element={<UserViewOffers />} />
+      <Route path="/userStore" element={<UserViewStores />} />
 
 
       <Route path="/home" element={<Home />} />

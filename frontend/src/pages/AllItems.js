@@ -1,12 +1,13 @@
-// Import the necessary components and functions
 import React, { useState, useEffect } from "react";
-import { Table, Button, Modal, Form } from "react-bootstrap";
+import { Card, Button, Modal, Form } from "react-bootstrap";
 import axios from 'axios';
+import jsPDF from 'jspdf'; // Import jsPDF for generating PDF reports
 import "./viewItems.css"; // Import the CSS file for styling
 
 function ViewItems() {
     const [values, setValues] = useState([]);
     const [ItemName, setItemName] = useState("");
+    const [ItemImage, setItemImage] = useState("");
     const [StoreName, setStoreName] = useState("");
     const [Price, setPrice] = useState("");
     const [Description, setDescription] = useState("");
@@ -40,12 +41,43 @@ function ViewItems() {
         handleShow();
     };
 
+    const generatePDFReport = (itemData) => {
+        // Create a new jsPDF instance
+        const doc = new jsPDF();
+
+        // Set properties of the PDF document
+        doc.setProperties({
+            title: 'Item Report',
+            author: 'Your Company',
+        });
+
+        // Set up the header of the PDF
+        doc.setFontSize(18);
+        doc.text('Item Report', 105, 10, { align: 'center' });
+
+        // Generate the content of the PDF
+        let content = '';
+        content += `Item Name: ${itemData.ItemName}\n`;
+        content += `Store Name: ${itemData.StoreName}\n`;
+        content += `Price: ${itemData.Price}\n`;
+        content += `Description: ${itemData.Description}\n`;
+        content += `Stock: ${itemData.Stock}\n`;
+
+        // Add the content to the PDF
+        doc.setFontSize(12);
+        doc.text(content, 10, 20);
+
+        // Save the PDF
+        doc.save('item_report.pdf');
+    };
+
     function sendData(e) {
         e.preventDefault();
 
         const updatedValues = {
             id: values._id,
             ItemName: ItemName || values.ItemName,
+            ItemImage: ItemImage || values.ItemImage,
             StoreName: StoreName || values.StoreName,
             Price: Price || values.Price,
             Description: Description || values.Description,
@@ -64,37 +96,31 @@ function ViewItems() {
     }
 
     return (
-        <div>
+        <div className="items-container">
             <h1>All Items</h1>
-            <Table striped bordered hover responsive className="items-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Item Name</th>
-                        <th>Store Name</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        <th>Stock</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items.map((val, key) => (
-                        <tr key={key}>
-                            <td>{val._id}</td>
-                            <td>{val.ItemName}</td>
-                            <td>{val.StoreName}</td>
-                            <td>{val.Price}</td>
-                            <td>{val.Description}</td>
-                            <td>{val.Stock}</td>
-                            <td>
-                                <Button variant="primary" onClick={() => updateItemDetails(val)}>Update</Button>
-                                <Button onClick={() => deleteItems(val._id)}>Delete</Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
+            <div className="items-cards">
+                {items.map((val, key) => (
+                    <Card key={key} className="item-card">
+                        <div className="card-image">
+                            <Card.Img variant="top" src={val.ItemImage} alt={val.ItemName} />
+                        </div>
+                        <Card.Body>
+                            <Card.Title>{val.ItemName}</Card.Title>
+                            <Card.Text>
+                                <p><strong>Store Name:</strong> {val.StoreName}</p>
+                                <p><strong>Price:</strong> {val.Price}</p>
+                                <p><strong>Description:</strong> {val.Description}</p>
+                                <p><strong>Stock:</strong> {val.Stock}</p>
+                            </Card.Text>
+                            <div className="card-buttons">
+                                <Button variant="primary" onClick={() => updateItemDetails(val)} className="update-button">Update</Button>
+                                <Button onClick={() => deleteItems(val._id)} className="delete-button">Delete</Button>
+                                <Button onClick={() => generatePDFReport(val)} className="report-button">Download Report</Button>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                ))}
+            </div>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
@@ -105,6 +131,10 @@ function ViewItems() {
                         <Form.Group controlId="itemName">
                             <Form.Label>Item Name</Form.Label>
                             <Form.Control type="text" defaultValue={values.ItemName} onChange={(e) => setItemName(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group controlId="itemImage">
+                            <Form.Label>Item Image</Form.Label>
+                            <Form.Control type="text" defaultValue={values.ItemImage} onChange={(e) => setItemImage(e.target.value)} required />
                         </Form.Group>
                         <Form.Group controlId="storeName">
                             <Form.Label>Store Name</Form.Label>

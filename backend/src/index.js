@@ -3,8 +3,6 @@ const cors = require("cors");
 const  mongoose = require('mongoose');
 require("dotenv").config();
 
-// const userRouter = require("./routes/User-routes");
-
 const app = express();
 // Enable all CORS requests
 app.use(cors());

@@ -6,6 +6,7 @@ exports.addNewItem= async (req, res) => {
     //constant variables for the attributes
     const {
       ItemName,
+      ItemImage,
       StoreName,
       Price,
       Description,
@@ -13,11 +14,12 @@ exports.addNewItem= async (req, res) => {
      } = req.body;
   
           const newItemDetails = new storeItemDetails({
-      ItemName,
-      StoreName,
-      Price,
-      Description,
-      Stock,
+            ItemName,
+            ItemImage,
+            StoreName,
+            Price,
+            Description,
+            Stock,
         })
     
         newItemDetails.save().then(() => {
@@ -49,6 +51,7 @@ exports.deleteStoreItems = async (req, res) => {
     let id = req.params.id;
     const {
       ItemName,
+      ItemImage,
       StoreName,
       Price,
       Description,
@@ -57,6 +60,7 @@ exports.deleteStoreItems = async (req, res) => {
   
     const updateStoreItems = {
       ItemName,
+      ItemImage,
       StoreName,
       Price,
       Description,

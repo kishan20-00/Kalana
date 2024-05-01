@@ -10,8 +10,13 @@
 .login-form {
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 20px;
+    background-color: #ccc;
     width: 400px; /* Adjust width as needed */
+    height: 350px;
+    position: relative;
+    left: 400px;
+    top: 50px;
 }
 
 .subButton {

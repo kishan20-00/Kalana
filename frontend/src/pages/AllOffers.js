@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Table, Button, Modal, Form } from "react-bootstrap";
 import axios from 'axios';
+import jsPDF from 'jspdf'; // Import jsPDF for generating PDF reports
 import "./ViewOffers.css"; // Import CSS file for styling
 
 export default function ViewOffers() {
@@ -37,6 +38,37 @@ export default function ViewOffers() {
     const updateOfferDetails = (val) => {
         setValues(val);
         handleShow();
+    };
+
+    const generatePDFReport = (offerData) => {
+        // Create a new jsPDF instance
+        const doc = new jsPDF();
+
+        // Set properties of the PDF document
+        doc.setProperties({
+            title: 'Offer Report',
+            author: 'Your Company',
+        });
+
+        // Set up the header of the PDF
+        doc.setFontSize(18);
+        doc.text('Offer Report', 105, 10, { align: 'center' });
+
+        // Generate the content of the PDF
+        let content = '';
+        content += `Offer Name: ${offerData.OfferName}\n`;
+        content += `Store Name: ${offerData.StoreName}\n`;
+        content += `Discount Percentage: ${offerData.DiscountPercentage}\n`;
+        content += `Contact Number: ${offerData.contactNumber}\n`;
+        content += `Description: ${offerData.Description}\n`;
+        content += `Period: ${offerData.Period}\n`;
+
+        // Add the content to the PDF
+        doc.setFontSize(12);
+        doc.text(content, 10, 20);
+
+        // Save the PDF
+        doc.save('offer_report.pdf');
     };
 
     function sendData(e) {
@@ -92,6 +124,7 @@ export default function ViewOffers() {
                             <td>
                                 <Button variant="primary" onClick={() => updateOfferDetails(val)}>Update</Button>
                                 <Button variant="danger" onClick={() => deleteOffers(val._id)}>Delete</Button>
+                                <Button onClick={() => generatePDFReport(val)} className="report-button">Download Report</Button>
                             </td>
                         </tr>
                     ))}
@@ -135,4 +168,3 @@ export default function ViewOffers() {
         </div>
     );
 }
-

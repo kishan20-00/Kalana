@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import "./login.css";
 import { Link, useNavigate } from "react-router-dom";
+import backgroundImage from './mall5.jpeg';
 
 function Login() {
     const [name, setName] = useState("");
@@ -15,48 +16,67 @@ function Login() {
         try {
             const response = await axios.post("http://localhost:8000/user/log", { name, password });
             console.log(response.data); 
+            localStorage.setItem('userData', JSON.stringify(response.data)); // Storing data in localStorage
             alert("Logged in Successfully!!!");
-            navigate('/home');
+    
+            // Check if the entered credentials match the admin credentials
+            if (name === "admin" && password === "123") {
+                // Redirect to the admin panel route
+                navigate('/admin');
+            } else {
+                // Redirect to the home route for regular users
+                navigate('/home');
+            }
         } catch (err) {
             setError("Invalid username or password"); // Set error message for invalid login attempt
             console.error(err); // Log any error to the console for debugging
         }
     };
+    
 
     return (
-        <div className="login-container">
-            <div className="login-form">
-                <h2>Login</h2>
-                {error && <p className="error-message">{error}</p>}
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="formBasicUsername">
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control
-                            type="text"
-                            placeholder="Enter username"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </Form.Group>
+        <div 
+            className="d-flex flex-column min-vh-100" 
+            style={{
+                backgroundImage: `url(${backgroundImage})`, // Set the background image
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+            }}
+        >
+            <div className="login-container">
+                <div className="login-form">
+                    <h2>Login</h2>
+                    {error && <p className="error-message">{error}</p>}
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="formBasicUsername">
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Enter username"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </Form.Group>
 
-                    <Form.Group controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                    </Form.Group>
+                        <Form.Group controlId="formBasicPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </Form.Group>
 
-                    <Button variant="primary" type="submit" className="subButton">
-                        Login
-                    </Button>
+                        <Button variant="primary" type="submit" className="subButton">
+                            Login
+                        </Button>
 
-                    <div className="signup-link">
-                    <p>Don't have an account? <Link to="/sign">Sign up</Link></p>
+                        <div className="signup-link">
+                            <p>Don't have an account? <Link to="/sign">Sign up</Link></p>
+                        </div>
+                    </Form>
                 </div>
-                </Form>
             </div>
         </div>
     );

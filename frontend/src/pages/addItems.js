@@ -4,21 +4,23 @@ import axios from "axios";
 import "./createItem.css"; // Import the CSS file for styling
 
 export default function CreateItem() {
-    const [itemName, setItemName] = useState("");
-    const [storeName, setStoreName] = useState("");
-    const [price, setPrice] = useState("");
-    const [description, setDescription] = useState("");
-    const [stock, setStock] = useState("Available"); // Default value set to "Available"
+    const [ItemName, setItemName] = useState("");
+    const [ItemImage, setItemImage] = useState("");
+    const [StoreName, setStoreName] = useState("");
+    const [Price, setPrice] = useState("");
+    const [Description, setDescription] = useState("");
+    const [Stock, setStock] = useState("Available"); // Default value set to "Available"
 
     function sendData(e) {
         e.preventDefault();
 
         const newItem = {
-            itemName,
-            storeName,
-            price,
-            description,
-            stock
+            ItemName,
+            ItemImage,
+            StoreName,
+            Price,
+            Description,
+            Stock
         };
 
         axios.post("http://localhost:8000/item/add", newItem)
@@ -41,6 +43,18 @@ export default function CreateItem() {
                         name="itemName"
                         onChange={(e) => {
                             setItemName(e.target.value);
+                        }}
+                    />
+                </Form.Group>
+
+                <Form.Group controlId="itemImage">
+                    <Form.Label>Item Image</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter Item Image"
+                        name="itemImage"
+                        onChange={(e) => {
+                            setItemImage(e.target.value);
                         }}
                     />
                 </Form.Group>
@@ -86,7 +100,7 @@ export default function CreateItem() {
                     <Form.Label>Stock</Form.Label>
                     <Form.Control
                         as="select"
-                        value={stock}
+                        value={Stock}
                         onChange={(e) => {
                             setStock(e.target.value);
                         }}

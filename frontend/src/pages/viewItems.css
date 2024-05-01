@@ -1,30 +1,60 @@
+/* Remove table-related styles */
 .items-table {
-    margin-top: 20px;
-  }
-  
-  .items-table th,
-  .items-table td {
-    text-align: center;
-  }
-  
-  .items-table th {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .items-table tbody tr:nth-child(odd) {
-    background-color: #f2f2f2;
-  }
-  
-  .items-table tbody tr:hover {
-    background-color: #cce5ff;
-  }
-  
-  .modal-dialog {
-    max-width: 600px;
-  }
-  
-  .modal-body .form-group {
-    margin-bottom: 20px;
-  }
-  
+  margin-top: 20px;
+}
+
+.items-table th,
+.items-table td {
+  text-align: center;
+}
+
+.items-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.items-table tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+.items-table tbody tr:hover {
+  background-color: #cce5ff;
+}
+
+.modal-dialog {
+  max-width: 600px;
+}
+
+.modal-body .form-group {
+  margin-bottom: 20px;
+}
+
+/* Add card layout styles */
+.items-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.itemImage{
+  width: 100px;
+  height: 100px;
+}
+
+.item-card {
+  width: 300px; /* Set the width of each card */
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+
+.update-button {
+  flex: 1;
+}
+
+.delete-button {
+  flex: 1;
+}

@@ -6,6 +6,7 @@ exports.addNewStore= async (req, res) => {
     //constant variables for the attributes
     const {
       StoreName,
+      StoreImage,
        Email,
        contactNumber,
        Location,
@@ -15,6 +16,7 @@ exports.addNewStore= async (req, res) => {
   
           const newStoreDetails = new storeDetailDetails({
             StoreName,
+            StoreImage,
             Email,
             contactNumber,
             Location,
@@ -51,6 +53,7 @@ exports.deleteStoreDetails = async (req, res) => {
     const {
       StoreID,
       StoreName,
+      StoreImage,
       Email,
       contactNumber,
       Location,
@@ -61,6 +64,7 @@ exports.deleteStoreDetails = async (req, res) => {
     const updateStoreDetails = {
       StoreID,
       StoreName,
+      StoreImage,
       Email,
       contactNumber,
       Location,

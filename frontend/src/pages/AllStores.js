@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Form } from "react-bootstrap";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import { Card, Button, Modal, Form } from "react-bootstrap";
 import axios from 'axios';
+import jsPDF from 'jspdf'; // Import jsPDF for generating PDF reports
 import "./viewStores.css";
 
 function ViewStores() {
     const [values, setValues] = useState([]);
     const [StoreName, setStoreName] = useState("");
+    const [StoreImage, setStoreImage] = useState("");
     const [Email, setEmail] = useState("");
     const [contactNumber, setContactNumber] = useState("");
     const [Location, setLocation] = useState("");
@@ -41,12 +41,44 @@ function ViewStores() {
         handleShow();
     };
 
+    const generatePDFReport = (storeData) => {
+        // Create a new jsPDF instance
+        const doc = new jsPDF();
+
+        // Set properties of the PDF document
+        doc.setProperties({
+            title: 'Store Report',
+            author: 'Your Company',
+        });
+
+        // Set up the header of the PDF
+        doc.setFontSize(18);
+        doc.text('Store Report', 105, 10, { align: 'center' });
+
+        // Generate the content of the PDF
+        let content = '';
+        content += `Store Name: ${storeData.StoreName}\n`;
+        content += `Email: ${storeData.Email}\n`;
+        content += `Contact Number: ${storeData.contactNumber}\n`;
+        content += `Location: ${storeData.Location}\n`;
+        content += `Category: ${storeData.Category}\n`;
+        content += `Opening Time: ${storeData.OpeningTime}\n`;
+
+        // Add the content to the PDF
+        doc.setFontSize(12);
+        doc.text(content, 10, 20);
+
+        // Save the PDF
+        doc.save('store_report.pdf');
+    };
+
     function sendData(e) {
         e.preventDefault();
 
         const updatedValues = {
             id: values._id,
             StoreName: StoreName || values.StoreName,
+            StoreImage: StoreImage || values.StoreImage,
             Email: Email || values.Email,
             contactNumber: contactNumber || values.contactNumber,
             Location: Location || values.Location,
@@ -66,39 +98,30 @@ function ViewStores() {
     }
 
     return (
-        <div>
+        <div className="store-container">
             <h1>All Stores</h1>
-            <table className="store-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Store Name</th>
-                        <th>Email</th>
-                        <th>Contact Number</th>
-                        <th>Location</th>
-                        <th>Category</th>
-                        <th>Opening Time</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {stores.map((val, key) => (
-                        <tr key={key}>
-                            <td>{val._id}</td>
-                            <td>{val.StoreName}</td>
-                            <td>{val.Email}</td>
-                            <td>{val.contactNumber}</td>
-                            <td>{val.Location}</td>
-                            <td>{val.Category}</td>
-                            <td>{val.OpeningTime}</td>
-                            <td>
-                                <Button variant="primary" onClick={() => updateStoreDetails(val)} className="uppay">Update</Button>
-                                <Button className="delpay" onClick={() => deleteStores(values._id)}>Delete</Button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div className="store-cards">
+                {stores.map((val, key) => (
+                    <Card key={key} className="store-card">
+                        <Card.Img variant="top" src={val.StoreImage} alt={val.StoreName} />
+                        <Card.Body>
+                            <Card.Title>{val.StoreName}</Card.Title>
+                            <Card.Text>
+                                <p><strong>Email:</strong> {val.Email}</p>
+                                <p><strong>Contact Number:</strong> {val.contactNumber}</p>
+                                <p><strong>Location:</strong> {val.Location}</p>
+                                <p><strong>Category:</strong> {val.Category}</p>
+                                <p><strong>Opening Time:</strong> {val.OpeningTime}</p>
+                            </Card.Text>
+                            <div className="card-buttons">
+                                <Button variant="primary" onClick={() => updateStoreDetails(val)} className="update-button">Update</Button>
+                                <Button onClick={() => deleteStores(val._id)} className="delete-button">Delete</Button>
+                                <Button onClick={() => generatePDFReport(val)} className="report-button">Download Report</Button>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                ))}
+            </div>
 
             <Modal show={show} onHide={handleClose} className="getfunc">
                 <Modal.Header closeButton>
@@ -109,6 +132,10 @@ function ViewStores() {
                         <Form.Group controlId="name">
                             <Form.Label>Store Name</Form.Label>
                             <Form.Control type="text" defaultValue={values.StoreName} onChange={(e) => setStoreName(e.target.value)} required />
+                        </Form.Group>
+                        <Form.Group controlId="image">
+                            <Form.Label>Store Image</Form.Label>
+                            <Form.Control type="text" defaultValue={values.StoreImage} onChange={(e) => setStoreImage(e.target.value)} required />
                         </Form.Group>
                         <Form.Group controlId="email">
                             <Form.Label>Email</Form.Label>

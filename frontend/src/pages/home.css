@@ -9,6 +9,7 @@
   .chatbot-button {
     /* Styles for a round button */
     border: none;
+    background-image: "./c.jpg";
     border-radius: 50%; /* Makes the button round */
     width: 50px; /* Adjust the width and height as needed */
     height: 50px;
@@ -31,15 +32,84 @@
 
 .logout{
   position: relative;
-  left: 680px;
+  left: 850px;
 }
   
 .navbar-brand {
   font-family: 'Roboto', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   font-weight: 700; /* Optionally adjust the font weight */
+  color: white !important; /* Change to the desired color value */
+  font-size: 25px;
 }
 
 /* Navbar text color */
 .navbar-nav .nav-link {
   color: white !important; /* Change text color to white */
+}
+
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 300px;
+  height: 400px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+
+.chatbot-container.closed {
+  height: 40px;
+}
+
+.chatbot-header {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.toggle-button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.chatbot-content {
+  height: calc(100% - 40px);
+  overflow-y: auto;
+}
+
+.chatbot-messages {
+  padding: 10px;
+}
+
+.message {
+  margin-bottom: 10px;
+}
+
+.user {
+  text-align: right;
+}
+
+.chatbot-input {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.chatbot-input button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.chatbot-input button:hover {
+  background-color: #0056b3;
 }

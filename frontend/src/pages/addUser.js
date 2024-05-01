@@ -3,12 +3,14 @@ import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import "./register.css";
 import { Link, useNavigate } from "react-router-dom";
+import backgroundImage from './mall7.jpeg';
 
 export default function Register() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [contactNumber, setContactNumber] = useState("");
     const [password, setPassword] = useState("");
+    let navigate = useNavigate();
 
     function sendData(e) {
         e.preventDefault();
@@ -23,6 +25,7 @@ export default function Register() {
         axios.post("http://localhost:8000/user/add", newUser)
             .then(() => {
                 alert("User Details were recorded.");
+                navigate('/home');
             })
             .catch((err) => {
                 alert(err);
@@ -30,6 +33,14 @@ export default function Register() {
     }
 
     return (
+        <div 
+    className="d-flex flex-column min-vh-100" 
+    style={{
+        backgroundImage: `url(${backgroundImage})`, // Set the background image
+        backgroundSize: '100% 100%', // Cover the entire container
+        backgroundPosition: 'center',
+    }}
+>
         <div className="register-container">
             <Form onSubmit={sendData}>
                 <Form.Group controlId="name">
@@ -87,6 +98,7 @@ export default function Register() {
                     <p>Don't have an account? <Link to="/">Sign up</Link></p>
                 </div>
             </Form>
+        </div>
         </div>
     );
 }

@@ -5,6 +5,7 @@ import "./createStore.css";
 
 export default function CreateStore() {
     const [StoreName, setStoreName] = useState("");
+    const [StoreImage, setStoreImage] = useState("");
     const [Email, setEmail] = useState("");
     const [contactNumber, setContactNumber] = useState("");
     const [Location, setLocation] = useState("");
@@ -16,6 +17,7 @@ export default function CreateStore() {
         
         const newStore = {
             StoreName,
+            StoreImage,
             Email,
             contactNumber,
             Location,
@@ -43,6 +45,18 @@ export default function CreateStore() {
                         name="name"
                         onChange={(e) => {
                             setStoreName(e.target.value);
+                        }}
+                    />
+                </Form.Group>
+
+                <Form.Group controlId="image">
+                    <Form.Label>Image</Form.Label>
+                    <Form.Control
+                        type="text"
+                        placeholder="Enter Image"
+                        name="image"
+                        onChange={(e) => {
+                            setStoreImage(e.target.value);
                         }}
                     />
                 </Form.Group>
