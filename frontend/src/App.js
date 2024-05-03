@@ -15,6 +15,7 @@ import AdminPanel from "./pages/adminpanel";
 import UserViewItems from "./pages/userviewItem";
 import UserViewOffers from "./pages/userviewOffer";
 import UserViewStores from "./pages/userviewstore";
+import Scanner from "./pages/Scanner";
 
 function App() {
   return (
@@ -38,7 +39,8 @@ function App() {
 
 
       <Route path="/home" element={<Home />} />
-      <Route path="/qr" element={<ParkingLot />} />
+      <Route path="/parking" element={<ParkingLot />} />
+      <Route path="/qr" element={<Scanner />} />
 
       </Routes>
       </BrowserRouter>

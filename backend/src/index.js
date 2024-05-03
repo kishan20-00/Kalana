@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const  mongoose = require('mongoose');
 require("dotenv").config();
+const bodyParser = require('body-parser');
 
 const app = express();
 // Enable all CORS requests
@@ -25,25 +26,50 @@ app.use("/offer", storeOfferRouter);
 const storeItemRouter = require("./routes/storeItemsRoutes.js");
 app.use("/item", storeItemRouter);
 
-// //promo code router
-// const promoCodeRouter = require("./routes/promoCodeRouter.js");
-// app.use("/promo", promoCodeRouter);
+// Define parking slot schema and model
+const parkingSlotSchema = new mongoose.Schema({
+  slotNumber: Number,
+  isOccupied: Boolean,
+});
 
-// //Package  router
-// const packageRouter = require("./routes/packageRoutes.js");
-// app.use("/package", packageRouter);
+const ParkingSlot = mongoose.model('ParkingSlot', parkingSlotSchema);
 
-// //Hotel router
-// const hotelRouter = require("./routes/hotelRoutes.js");
-// app.use("/hotel", hotelRouter);
+app.use(bodyParser.json());
 
-// //Rates Router
-// const rateRouter = require("./routes/rateRoutes.js");
-// app.use("/rate", rateRouter);
+// API endpoints
+app.get('/api/parking-slots', async (req, res) => {
+  try {
+    const parkingSlots = await ParkingSlot.find();
+    res.json(parkingSlots);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
 
-// //RealTime Router
-// const realTimeRouter = require("./routes/realTimeRoutes.js");
-// app.use("/realTime", realTimeRouter);
+app.post('/api/parking-slots/:id/occupy', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const parkingSlot = await ParkingSlot.findByIdAndUpdate(id, { isOccupied: true }, { new: true });
+    res.json(parkingSlot);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
+// Backend route to vacate a parking slot
+app.post('/api/parking-slots/:id/vacate', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const parkingSlot = await ParkingSlot.findByIdAndUpdate(id, { isOccupied: false }, { new: true });
+    res.json(parkingSlot);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server Error' });
+  }
+});
+
 
 const initialize = async () => {
     try {

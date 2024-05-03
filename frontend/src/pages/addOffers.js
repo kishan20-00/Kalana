@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import "./CreateOffer.css"; // Import CSS file for styling
+import { Navbar, Nav } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateOffer() {
   const [OfferName, setOfferName] = useState("");
@@ -10,6 +12,7 @@ export default function CreateOffer() {
   const [contactNumber, setContactNumber] = useState("");
   const [Description, setDescription] = useState("");
   const [Period, setPeriod] = useState("");
+  let navigate = useNavigate();
 
   function sendData(e) {
     e.preventDefault();
@@ -33,7 +36,33 @@ export default function CreateOffer() {
       });
   }
 
+  const logout = () => {
+    navigate('/');
+  };
+
+  const profile = () => {
+    navigate('/profile');
+  };
+
   return (
+    <div>
+      <div className="header">
+      <Navbar bg="dark" data-bs-theme="dark">
+        <Navbar.Brand href="#home">Super Mall</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/userItem">Items</Nav.Link>
+            <Nav.Link href="/userStore">Shops</Nav.Link>
+            <Nav.Link href="/userOffer">Offers</Nav.Link>
+            <Nav.Link href="/qr">Parking Lot</Nav.Link>
+            <button className="logout" onClick={profile}>Profile</button>
+            <button className="logout" onClick={logout}>Logout</button>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      </div>
     <div className="form-container">
       <Form onSubmit={sendData}>
         <div className="form-box">
@@ -121,6 +150,7 @@ export default function CreateOffer() {
           </Button>
         </div>
       </Form>
+    </div>
     </div>
   );
 }

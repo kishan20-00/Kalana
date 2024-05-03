@@ -1,70 +1,91 @@
-import React, { useState } from "react";
-import QrScanner from "react-qr-scanner";
-import "./ParkingLot.css"; // Import CSS file for styling
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import "./ParkingLot.css";
 
 function ParkingLot() {
-  const [scanSuccess, setScanSuccess] = useState(false);
-  const [selectedBoxes, setSelectedBoxes] = useState([]);
-  const [showScanner, setShowScanner] = useState(false);
-  const [parkingLot, setParkingLot] = useState(null);
+  const [parkingSlots, setParkingSlots] = useState([]);
+  const [selectedSlot, setSelectedSlot] = useState(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [selectedSlotNum, setSelectedSlotNum] = useState(null);
 
-  const handleScan = (data) => {
-    if (data && data === "success") {
-      // QR code scanned successfully with message "success"
-      setScanSuccess(true);
-      // Generate a random parking lot number
-      const randomParkingLot = Math.floor(Math.random() * 100) + 1;
-      setParkingLot(randomParkingLot);
+  useEffect(() => {
+    fetchParkingSlots();
+  }, []);
+
+  useEffect(() => {
+    if (isInitialized) {
+      occupyRandomParkingSlot();
+    }
+  }, [isInitialized]); // Run when isInitialized state changes
+
+  const fetchParkingSlots = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/parking-slots');
+      console.log('Parking slots:', response.data);
+      setParkingSlots(response.data);
+      setIsInitialized(true); // Set isInitialized to true after parking slots are fetched
+    } catch (error) {
+      console.error('Error fetching parking slots:', error);
     }
   };
 
-  const handleError = (err) => {
-    console.error(err);
+  const occupyRandomParkingSlot = async () => {
+    try {
+      const occupiedSlots = parkingSlots.filter(slot => slot.isOccupied);
+      const unoccupiedSlots = parkingSlots.filter(slot => !slot.isOccupied);
+  
+      if (unoccupiedSlots.length === 0) {
+        console.log('All parking slots are occupied.');
+        return;
+      }
+  
+      const randomIndex = Math.floor(Math.random() * unoccupiedSlots.length);
+      const randomSlot = unoccupiedSlots[randomIndex];
+      await bookParkingSlot(randomSlot._id);
+      setSelectedSlotNum(randomSlot.slotNumber);
+    } catch (error) {
+      console.error('Error occupying parking slot:', error);
+    }
   };
+  
 
-  const handleBoxClick = (box) => {
-    // Toggle the selection status of the box
-    if (selectedBoxes.includes(box)) {
-      setSelectedBoxes(selectedBoxes.filter((selectedBox) => selectedBox !== box));
-    } else {
-      setSelectedBoxes([...selectedBoxes, box]);
+  const bookParkingSlot = async (randomSlotId) => {
+    try {
+      const response = await axios.post(`http://localhost:8000/api/parking-slots/${randomSlotId}/occupy`);
+      console.log('Parking slot booked:', response.data);
+      setSelectedSlot(randomSlotId);
+      fetchParkingSlots();
+    } catch (error) {
+      console.error('Error occupying parking slot:', error);
     }
   };
 
-  const handleOpenScanner = () => {
-    setShowScanner(true);
-  };
-
-  const handleCloseScanner = () => {
-    setShowScanner(false);
+  const vacateParkingSlot = async () => {
+    try {
+      const response = await axios.post(`http://localhost:8000/api/parking-slots/${selectedSlot}/vacate`);
+      console.log('Parking slot vacated:', response.data);
+      setSelectedSlot(null);
+      fetchParkingSlots();
+    } catch (error) {
+      console.error('Error vacating parking slot:', error);
+    }
   };
 
   return (
-    <div className="container">
-      <h1>Parking Lot</h1>
-      <div className="grid-container">
-        {Array.from({ length: 100 }, (_, index) => (
+    <div className="App">
+      <h1>Parking System</h1>
+      {selectedSlot && <div>Selected Parking Slot: {selectedSlotNum}</div>}
+      <button onClick={vacateParkingSlot} disabled={!selectedSlot}>Vacate</button>
+      <div className="parking-slots">
+        {parkingSlots.map((slot) => (
           <div
-            key={index}
-            className={`box ${selectedBoxes.includes(index) ? "selected" : ""}`}
-            onClick={() => handleBoxClick(index)}
+            key={slot._id}
+            className={`parking-slot ${slot.isOccupied ? 'occupied' : 'available'}`}
           >
-            {index}
+            Slot {slot.slotNumber}
           </div>
         ))}
       </div>
-      <button onClick={handleOpenScanner}>Open QR Scanner</button>
-      {showScanner && (
-        <div className="qr-scanner-popup">
-          <QrScanner delay={300} onError={handleError} onScan={handleScan} />
-          <button onClick={handleCloseScanner}>Close</button>
-        </div>
-      )}
-      {scanSuccess && (
-        <p>
-          Success! Parking lot assigned: {parkingLot}
-        </p>
-      )}
     </div>
   );
 }

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
 import "./createStore.css";
+import { Navbar, Nav } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateStore() {
     const [StoreName, setStoreName] = useState("");
@@ -11,6 +13,7 @@ export default function CreateStore() {
     const [Location, setLocation] = useState("");
     const [Category, setCategory] = useState("");
     const [OpeningTime, setOpeningTime] = useState("");
+    let navigate = useNavigate();
 
     function sendData(e) {
         e.preventDefault();
@@ -34,7 +37,33 @@ export default function CreateStore() {
             });
     }
 
+    const logout = () => {
+        navigate('/');
+      };
+    
+      const profile = () => {
+        navigate('/profile');
+      };
+
     return (
+        <div>
+            <div className="header">
+      <Navbar bg="dark" data-bs-theme="dark">
+        <Navbar.Brand href="#home">Super Mall</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="/home">Home</Nav.Link>
+            <Nav.Link href="/userItem">Items</Nav.Link>
+            <Nav.Link href="/userStore">Shops</Nav.Link>
+            <Nav.Link href="/userOffer">Offers</Nav.Link>
+            <Nav.Link href="/qr">Parking Lot</Nav.Link>
+            <button className="logout" onClick={profile}>Profile</button>
+            <button className="logout" onClick={logout}>Logout</button>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      </div>
         <div className="container">
             <Form onSubmit={sendData}>
                 <Form.Group controlId="name">
@@ -125,6 +154,7 @@ export default function CreateStore() {
                     Register
                 </Button>
             </Form>
+        </div>
         </div>
     );
 }
