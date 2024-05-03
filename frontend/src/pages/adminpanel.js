@@ -42,6 +42,11 @@ function AdminPanel() {
                     <p>Add Item details</p>
                     <Link to="/additem" className="admin-panel-link">Add Items</Link>
                 </div>
+                <div className="admin-panel-option">
+                    <h2>Logout</h2>
+                    <p>Landing back to the Log In page</p>
+                    <Link to="/" className="admin-panel-link">Logout</Link>
+                </div>
             </div>
         </div>
     );

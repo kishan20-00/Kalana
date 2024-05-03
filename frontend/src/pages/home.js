@@ -38,6 +38,7 @@ export default function Home() {
       'how are you': "I'm just a computer program, so I don't have feelings, but I'm here to assist you!",
       'what time is it': `I'm sorry, I can't provide real-time information.`,
       'where is the store':'it is on colombo 7',
+      'what is the price':'price is 20 rs.',
     };
 
     // Check if the user's message matches any of the questions
