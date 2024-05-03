@@ -73,6 +73,7 @@ export default function CreateItem() {
                         onChange={(e) => {
                             setItemName(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -85,6 +86,7 @@ export default function CreateItem() {
                         onChange={(e) => {
                             setItemImage(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -97,6 +99,7 @@ export default function CreateItem() {
                         onChange={(e) => {
                             setStoreName(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -109,6 +112,7 @@ export default function CreateItem() {
                         onChange={(e) => {
                             setPrice(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -122,6 +126,7 @@ export default function CreateItem() {
                         onChange={(e) => {
                             setDescription(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 

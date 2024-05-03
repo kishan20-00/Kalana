@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./ParkingLot.css";
+import { useNavigate } from "react-router-dom";
 
 function ParkingLot() {
+  let navigate = useNavigate();
   const [parkingSlots, setParkingSlots] = useState([]);
   const [selectedSlot, setSelectedSlot] = useState(null);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -71,9 +73,14 @@ function ParkingLot() {
     }
   };
 
+  const home = () => {
+    navigate('/home');
+  };
+
   return (
     <div className="App">
       <h1>Parking System</h1>
+      <button onClick={home} className='back'>Back</button>
       {selectedSlot && <div>Selected Parking Slot: {selectedSlotNum}</div>}
       <button onClick={vacateParkingSlot} disabled={!selectedSlot}>Vacate</button>
       <div className="parking-slots">

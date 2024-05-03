@@ -52,6 +52,7 @@ export default function Register() {
                         onChange={(e) => {
                             setName(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -64,6 +65,7 @@ export default function Register() {
                         onChange={(e) => {
                             setEmail(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -76,6 +78,7 @@ export default function Register() {
                         onChange={(e) => {
                             setContactNumber(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -88,6 +91,7 @@ export default function Register() {
                         onChange={(e) => {
                             setPassword(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 

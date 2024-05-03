@@ -28,3 +28,10 @@
 .occupied {
   background-color: #d9534f; /* Red */
 }
+
+.back{
+  position: relative;
+  right: 750px;
+  width: 100px;
+  bottom: 20px;
+}

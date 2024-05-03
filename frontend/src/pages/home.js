@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./home.css"; // Import CSS file for styling
 import { Navbar, Nav } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import backgroundImage from './Mall.jpg';
+import backgroundImage from './mall.jpg';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 export default function Home() {

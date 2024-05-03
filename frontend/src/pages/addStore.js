@@ -75,6 +75,7 @@ export default function CreateStore() {
                         onChange={(e) => {
                             setStoreName(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -87,6 +88,7 @@ export default function CreateStore() {
                         onChange={(e) => {
                             setStoreImage(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -99,6 +101,7 @@ export default function CreateStore() {
                         onChange={(e) => {
                             setEmail(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -111,6 +114,7 @@ export default function CreateStore() {
                         onChange={(e) => {
                             setContactNumber(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -123,6 +127,7 @@ export default function CreateStore() {
                         onChange={(e) => {
                             setLocation(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -135,6 +140,7 @@ export default function CreateStore() {
                         onChange={(e) => {
                             setCategory(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
@@ -147,6 +153,7 @@ export default function CreateStore() {
                         onChange={(e) => {
                             setOpeningTime(e.target.value);
                         }}
+                        required
                     />
                 </Form.Group>
 
