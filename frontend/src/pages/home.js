@@ -37,6 +37,7 @@ export default function Home() {
       'what is your name': "I'm a chatbot developed by OpenAI.",
       'how are you': "I'm just a computer program, so I don't have feelings, but I'm here to assist you!",
       'what time is it': `I'm sorry, I can't provide real-time information.`,
+      'where is the store':'it is on colombo 7',
     };
 
     // Check if the user's message matches any of the questions
